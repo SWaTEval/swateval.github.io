@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuration &mdash; SWaTEval  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utility Classes" href="utils.html" />
+    <link rel="prev" title="Data Classes" href="dataclasses.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SWaTEval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">SWATEval Framework</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Scanner's Description</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataclasses.html">Data Classes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sections">Sections</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#redis">Redis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mitm-proxy">MITM Proxy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mongo">Mongo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vulnarable-web-app">Vulnarable Web App</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workers">Workers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#worker-settings">Worker Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#state-navigator">State Navigator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#endpoint-detector">Endpoint Detector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#endpoint-cleaner">Endpoint Cleaner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#state-change-detector">State Change Detector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#state-collapser">State Collapser</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Classes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SWaTEval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Configuration</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/framework/configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h1>
+<p>This section will describe how to configure the scanner using the configuration file <code class="docutils literal notranslate"><span class="pre">config.py</span></code> in the root scanner directory.</p>
+<section id="sections">
+<h2>Sections<a class="headerlink" href="#sections" title="Permalink to this headline"></a></h2>
+<p>There are several sections that configure different services and scanner modules. Each of them are described in detail below.</p>
+<section id="redis">
+<h3>Redis<a class="headerlink" href="#redis" title="Permalink to this headline"></a></h3>
+<p>Holds the address and the credentials needed to establis connection to Redis</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[redis]</span><span class="w"></span>
+<span class="na">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your redis host**</span><span class="w"></span>
+<span class="na">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your redis port**</span><span class="w"></span>
+<span class="na">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your redis db (usually 0)**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="mitm-proxy">
+<h3>MITM Proxy<a class="headerlink" href="#mitm-proxy" title="Permalink to this headline"></a></h3>
+<p>Holds the settings for the MITM proxy used by the exteranl scanners</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[proxy]</span><span class="w"></span>
+<span class="na">auto_start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;no&quot; if you start the proxy manually, &quot;yes&quot; if the scanner should start it**</span><span class="w"></span>
+<span class="na">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your proxy scheme (http or https)**</span><span class="w"></span>
+<span class="na">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your proxy host (localhost for local proxy)**</span><span class="w"></span>
+<span class="na">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**your proxy port**</span><span class="w"></span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the proxy is autostarted the given scheme host and port will be used for proxy setup. If auto start is
+disabled, make sure the data scheme, host and port data match the one of the proxy you are using.</p>
+</div>
+</section>
+<section id="mongo">
+<h3>Mongo<a class="headerlink" href="#mongo" title="Permalink to this headline"></a></h3>
+<p>The database MongoDB has two sections in the configuration file:</p>
+<p>The first one contains the credentials for connection</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[mongo_db_credentials]</span><span class="w"></span>
+<span class="na">mongo_host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**mongo host**</span><span class="w"></span>
+<span class="na">mongo_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**mongo port (default usually is 27017)**</span><span class="w"></span>
+<span class="na">username</span><span class="o">=</span><span class="w"> </span><span class="s">**leave empty if no user is needed for authentication**</span><span class="w"></span>
+<span class="na">password</span><span class="o">=</span><span class="w"> </span><span class="s">**leave empty if no user is needed for authentication**</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The second one contains the names for the databases where data should be read from and written to:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[mongo_db_names]</span><span class="w"></span>
+<span class="na">interactions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;interactions&quot; or give a custom name**</span><span class="w"></span>
+<span class="na">states</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;states&quot; or give a custom name**</span><span class="w"></span>
+<span class="na">endpoints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;endpoints&quot; or give a custom name**</span><span class="w"></span>
+<span class="na">endpoint_clustering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;endpoint_clustering&quot; or give a custom name**</span><span class="w"></span>
+<span class="na">interaction_clustering</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;interaction_clustering&quot; or give a custom name**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="vulnarable-web-app">
+<h3>Vulnarable Web App<a class="headerlink" href="#vulnarable-web-app" title="Permalink to this headline"></a></h3>
+<p>Contains the VWA data</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Not fully implemented or properly used feature</strong>.</p>
+<p>Currently this section is used to extract the address of the target app, when the scanner is running
+in dev mode (i.e. in IDE and not in the backend server). The initial idea was to auto start the vulnarable
+web app as a docker contai
+ner and redeploy it, when a reset is needed. This approach was replaced with a
+simpler one, but the idea remains possible for future implemntations. This is why this section is not yet removed.</p>
+</div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[vulnerable_web_app]</span><span class="w"></span>
+<span class="na">docker_image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**name of the docker image (local or from the hub)**</span><span class="w"></span>
+<span class="na">container_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**name of the container where the image will be deployed**</span><span class="w"></span>
+<span class="na">container_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**port of app**</span><span class="w"></span>
+<span class="na">app_scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**depends on the server configuration in the image (http or https)**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="workers">
+<h3>Workers<a class="headerlink" href="#workers" title="Permalink to this headline"></a></h3>
+<p>Here the workers are selected</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[workers]</span><span class="w"></span>
+<span class="na">execution_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">*sequential, parallel-rq or parallel-threaded*</span><span class="w"></span>
+<span class="na">crawler_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the full python module path to the module&#39;s file**</span><span class="w"></span>
+<span class="na">crawler_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the modules class name**</span><span class="w"></span>
+
+<span class="na">endpoint_detector_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the full python module path to the module&#39;s file**</span><span class="w"></span>
+<span class="na">endpoint_detector_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the modules class name**</span><span class="w"></span>
+
+<span class="na">endpoint_cleaner_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the full python module path to the module&#39;s file**</span><span class="w"></span>
+<span class="na">endpoint_cleaner_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the modules class name**</span><span class="w"></span>
+
+<span class="na">state_detector_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the full python module path to the module&#39;s file**</span><span class="w"></span>
+<span class="na">state_detector_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the modules class name**</span><span class="w"></span>
+
+<span class="na">state_collapser_module</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the full python module path to the module&#39;s file**</span><span class="w"></span>
+<span class="na">state_collapser_class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**the modules class name**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="worker-settings">
+<h3>Worker Settings<a class="headerlink" href="#worker-settings" title="Permalink to this headline"></a></h3>
+<p>There are multiple sections that configure the different workers:</p>
+<section id="state-navigator">
+<h4>State Navigator<a class="headerlink" href="#state-navigator" title="Permalink to this headline"></a></h4>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[state_navigator]</span><span class="w"></span>
+<span class="na">max_revisits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**how many times the state navigator should revisit an endpoint in a state**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="endpoint-detector">
+<h4>Endpoint Detector<a class="headerlink" href="#endpoint-detector" title="Permalink to this headline"></a></h4>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[endpoint_detector]</span><span class="w"></span>
+<span class="na">restrict_host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;yes&quot; or &quot;no&quot; - visit only endpoints on the current host**</span><span class="w"></span>
+<span class="na">allow_all_visit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**allow every endpoint found to be visited indepndet if it&#39;s duplicate**</span><span class="w"></span>
+<span class="na">mark_always_clean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**mark every endpoint as clean (i.e. ignore clustering)**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="endpoint-cleaner">
+<h4>Endpoint Cleaner<a class="headerlink" href="#endpoint-cleaner" title="Permalink to this headline"></a></h4>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[endpoint_cleaner]</span><span class="w"></span>
+<span class="na">distance_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**check the Distance class in the Utilities for all possible distance or leave empty to use the Hash2Vec method**</span><span class="w"></span>
+<span class="na">delete_dirty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;yes&quot; if the duplicate endpoints should be deleted and &quot;no&quot; if they should be only flagged for skipping **</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="state-change-detector">
+<h4>State Change Detector<a class="headerlink" href="#state-change-detector" title="Permalink to this headline"></a></h4>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[state_change_detector]</span><span class="w"></span>
+<span class="na">distance_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**check the Distance class in the Utilities for all possible distance or leave empty to use the Hash2Vec method**</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="state-collapser">
+<h4>State Collapser<a class="headerlink" href="#state-collapser" title="Permalink to this headline"></a></h4>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[state_collapser]</span><span class="w"></span>
+<span class="na">distance_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">**check the Distance class in the Utilities for all possible distance or leave empty to use the Hash2Vec method**</span><span class="w"></span>
+<span class="na">delete_collapsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">** &quot;yes&quot; if the duplicate states will be deleted and &quot;no&quot; if there should be only flagged as collapsed **</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dataclasses.html" class="btn btn-neutral float-left" title="Data Classes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utility Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SWaTEval.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture &mdash; SWaTEval  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Implementation" href="implementation.html" />
+    <link rel="prev" title="SWATEval Framework" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SWaTEval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">SWATEval Framework</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Scanner's Description</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scanner-s-abstraction">Scanner’s abstraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-scanner.Base.BaseModule">BaseModule</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-scanner.Base.BaseDetector">BaseDetecor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#web-crawler-s-abstraction">Web-Crawler’s abstraction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-scanner.Base.BaseCrawler">BaseCrawler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-scanner.Base.BaseInteractionHandler">BaseInteractionHandler</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#work-abstraction">Work Abstraction</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataclasses.html">Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Classes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SWaTEval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Architecture</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/framework/architecture.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="architecture">
+<h1>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline"></a></h1>
+<section id="scanner-s-abstraction">
+<h2>Scanner’s abstraction<a class="headerlink" href="#scanner-s-abstraction" title="Permalink to this headline"></a></h2>
+<p>The scanner engine, also reffered as <strong>the scanner</strong> is composed of multiple concrete modules, which have different or similar tasks and use
+individual approaches to get them done. In order to create an extendable and pluggable framework, all of the components implement an abstract
+base class called <strong>BaseModule</strong>. As you’re going to see later on, this allows the modules to be wrapped in workers and get them running in a
+different manner (i.e. in sequentials, in parallel, distributed or dockerized), while simultaniously providing different input parameter to each
+of them.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The main idea of the <strong>BaseModule</strong> is to provide a standardized interface for the worker wrappers. However, each module can be existing on it’s
+own and run without being wrapped in a worker wrapper.</p>
+</div>
+<figure class="align-center" id="id1">
+<img alt="../_images/abstraction.svg" src="../_images/abstraction.svg" /><figcaption>
+<p><span class="caption-text"><em>BaseModule and it’s abstract class derivations</em></span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>From the <strong>BaseModule</strong> two more abstract classes are derived. Those are the <strong>BaseCrawler</strong>, which is an abstraction for the web-crawler part
+of the scanner and the <strong>BaseDetecor</strong>, which represents the different detectors that are part of the scanners state detection pipeline. Both of the
+derived abstract classes have their own method, which interanally gets invoked when the parent <code class="docutils literal notranslate"><span class="pre">run()</span></code> method gets called (i.e. the <code class="docutils literal notranslate"><span class="pre">run()</span></code> method
+is interanally implemented). The suggested abstractions allows further classes to be derived, while simultaniously integrating them in the scanners pipeline
+and making them runnable by a worker wrapper.</p>
+<section id="module-scanner.Base.BaseModule">
+<span id="basemodule"></span><h3>BaseModule<a class="headerlink" href="#module-scanner.Base.BaseModule" title="Permalink to this headline"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Base.BaseModule.BaseModule">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseModule.</span></span><span class="sig-name descname"><span class="pre">BaseModule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseModule.BaseModule" title="Permalink to this definition"></a></dt>
+<dd><p>The most granular class unit of the project. It is used as an interface for the <code class="xref py py-class docutils literal notranslate"><span class="pre">Work</span></code> classes</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseModule.BaseModule.run">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseModule.BaseModule.run" title="Permalink to this definition"></a></dt>
+<dd><p>The interface method that gets invoked by the workers created with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Work</span></code> classes.
+Each derivative of the <a class="reference internal" href="#scanner.Base.BaseModule.BaseModule" title="scanner.Base.BaseModule.BaseModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code></a> class implements its own functionality that is called with
+the run() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scanner.Base.BaseDetector">
+<span id="basedetecor"></span><h3>BaseDetecor<a class="headerlink" href="#module-scanner.Base.BaseDetector" title="Permalink to this headline"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Base.BaseDetector.BaseDetector">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseDetector.</span></span><span class="sig-name descname"><span class="pre">BaseDetector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseDetector.BaseDetector" title="Permalink to this definition"></a></dt>
+<dd><p>An abstract representation of a detector module, derivation of the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code> class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseDetector.BaseDetector.detect">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">detect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseDetector.BaseDetector.detect" title="Permalink to this definition"></a></dt>
+<dd><p>Detection logic is implemented here. This method gets invoked by the <a class="reference internal" href="#scanner.Base.BaseDetector.BaseDetector.run" title="scanner.Base.BaseDetector.BaseDetector.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseDetector.BaseDetector.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseDetector.BaseDetector.run" title="Permalink to this definition"></a></dt>
+<dd><p>The interface method that gets invoked by the workers created with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Work</span></code> classes.
+Each derivative of the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code> class implements its own functionality that is called with
+the run() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scanner.Base.BaseDetector.NoMoreUnprocessedInteractions">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseDetector.</span></span><span class="sig-name descname"><span class="pre">NoMoreUnprocessedInteractions</span></span><a class="headerlink" href="#scanner.Base.BaseDetector.NoMoreUnprocessedInteractions" title="Permalink to this definition"></a></dt>
+<dd><p>Thrown when there are no more interactions for processing in the DB.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="web-crawler-s-abstraction">
+<h2>Web-Crawler’s abstraction<a class="headerlink" href="#web-crawler-s-abstraction" title="Permalink to this headline"></a></h2>
+<p>The web-crawler, also reffered as <strong>the crawler</strong>, is a module responsible for exploring the targeted web-app. The crawler additionally is composed of
+two interanal modules: <strong>StateNavigator</strong> which selects the current state and navigates to it and <strong>InteractionHandler</strong> which generates and executes Requests.</p>
+<section id="module-scanner.Base.BaseCrawler">
+<span id="basecrawler"></span><h3>BaseCrawler<a class="headerlink" href="#module-scanner.Base.BaseCrawler" title="Permalink to this headline"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Base.BaseCrawler.BaseCrawler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseCrawler.</span></span><span class="sig-name descname"><span class="pre">BaseCrawler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseCrawler.BaseCrawler" title="Permalink to this definition"></a></dt>
+<dd><p>An abstract representation of the crawler, derivation of the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code> class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseCrawler.BaseCrawler.crawl">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">crawl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseCrawler.BaseCrawler.crawl" title="Permalink to this definition"></a></dt>
+<dd><p>Crawling logic is implemented here. This method gets invoked by the <a class="reference internal" href="#scanner.Base.BaseCrawler.BaseCrawler.run" title="scanner.Base.BaseCrawler.BaseCrawler.run"><code class="xref py py-meth docutils literal notranslate"><span class="pre">run()</span></code></a> method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseCrawler.BaseCrawler.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseCrawler.BaseCrawler.run" title="Permalink to this definition"></a></dt>
+<dd><p>The interface method that gets invoked by the workers created with the <code class="xref py py-class docutils literal notranslate"><span class="pre">Work</span></code> classes.
+Each derivative of the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code> class implements its own functionality that is called with
+the run() method.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-scanner.Base.BaseInteractionHandler">
+<span id="baseinteractionhandler"></span><h3>BaseInteractionHandler<a class="headerlink" href="#module-scanner.Base.BaseInteractionHandler" title="Permalink to this headline"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Base.BaseInteractionHandler.BaseInteractionHandler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseInteractionHandler.</span></span><span class="sig-name descname"><span class="pre">BaseInteractionHandler</span></span><a class="headerlink" href="#scanner.Base.BaseInteractionHandler.BaseInteractionHandler" title="Permalink to this definition"></a></dt>
+<dd><p>An abstract representation of the interaction handler.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseInteractionHandler.BaseInteractionHandler.execute">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Request.Request" title="scanner.Dataclasses.Request.Request"><span class="pre">scanner.Dataclasses.Request.Request</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_interaction</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Response.Response" title="scanner.Dataclasses.Response.Response"><span class="pre">scanner.Dataclasses.Response.Response</span></a></span></span><a class="headerlink" href="#scanner.Base.BaseInteractionHandler.BaseInteractionHandler.execute" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used for request execution. Custom logic is used to implement additional functionality.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseInteractionHandler.BaseInteractionHandler.generate">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Request.Request" title="scanner.Dataclasses.Request.Request"><span class="pre">scanner.Dataclasses.Request.Request</span></a></span></span><a class="headerlink" href="#scanner.Base.BaseInteractionHandler.BaseInteractionHandler.generate" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used for request generation. Custom logic is used to implement additional functionality, as for
+example automatic endpoint selection, state selection, etc.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scanner.Base.BaseInteractionHandler.NoMoreEndpoints">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseInteractionHandler.</span></span><span class="sig-name descname"><span class="pre">NoMoreEndpoints</span></span><a class="headerlink" href="#scanner.Base.BaseInteractionHandler.NoMoreEndpoints" title="Permalink to this definition"></a></dt>
+<dd><p>Thrown when there are no more endpoints matching a selection criterion in the DB.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="work-abstraction">
+<h2>Work Abstraction<a class="headerlink" href="#work-abstraction" title="Permalink to this headline"></a></h2>
+<p>As mentioned previously, the main idea of the <strong>BaseModule</strong> is to create an interface for the <strong>BaseWork</strong> classes. In this way,
+the work calsses can wrap each module of the sanner and add aditional complexity to the execution logic, without complicating
+the modules functionality interanally.</p>
+<p>Furthermore, the idea behind the work classes was to make different types of module execution possible, as for example a parallel
+or a sequential run. For this, the <strong>BaseWork</strong> class was implemented, providing the needed interface for future implementations.</p>
+<span class="target" id="module-scanner.Base.BaseWork"></span><dl class="py class">
+<dt class="sig sig-object py" id="scanner.Base.BaseWork.BaseWork">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Base.BaseWork.</span></span><span class="sig-name descname"><span class="pre">BaseWork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_worker</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseWork.BaseWork" title="Permalink to this definition"></a></dt>
+<dd><p>Interface for the <code class="xref py py-class docutils literal notranslate"><span class="pre">Work</span></code> classes.</p>
+<p>Work constructor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>for_worker</strong> (<em>str</em>) – Name of the worker that will take this type of work</p></li>
+<li><p><strong>module_name</strong> (<em>str</em>) – Path to the module using the Python convention (Example my_library.my_module.Module)</p></li>
+<li><p><strong>class_name</strong> (<em>str</em>) – Name of the class that will be taken from the selected module</p></li>
+<li><p><strong>class_args</strong> (<em>tuple</em>) – Tuple of arguments that are going to be supplied by the worker to the <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModule</span></code> used by the <a class="reference internal" href="#scanner.Base.BaseWork.BaseWork" title="scanner.Base.BaseWork.BaseWork"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseWork</span></code></a> class (Warning: This feature is not properly tested and may not work as intended.)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Base.BaseWork.BaseWork.handle">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Base.BaseWork.BaseWork.handle" title="Permalink to this definition"></a></dt>
+<dd><p>This method implements the functionality of the work to be done</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="SWATEval Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="implementation.html" class="btn btn-neutral float-right" title="Implementation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SWaTEval.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

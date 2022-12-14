@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Implementation &mdash; SWaTEval  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data Classes" href="dataclasses.html" />
+    <link rel="prev" title="Architecture" href="architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> SWaTEval
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../general/index.html">General information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">SWATEval Framework</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Scanner's Description</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#crawler">Crawler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-classes">Simple Classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplecrawler">SimpleCrawler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplestatenavigator">SimpleStateNavigator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simpleinteractionhandler">SimpleInteractionHandler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#detectors">Detectors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#endpoint-extractor">Endpoint Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#endpoint-detector">Endpoint Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-change-detector">State Change Detector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#state-detector">State Detector</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dection-methods">Dection methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-scanner.Detection.Basic.EndpointExtractor">Basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clustering-based">Clustering Based</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#distance-matrix-based">Distance Matrix Based</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hash-as-int-vector-hash2vec">Hash as int vector (Hash2Vec)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dataclasses.html">Data Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Classes</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">SWaTEval</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/framework/implementation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="implementation">
+<h1>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline"></a></h1>
+<p>This section describes the different crawler implementation and how to use them.</p>
+<section id="crawler">
+<h2>Crawler<a class="headerlink" href="#crawler" title="Permalink to this headline"></a></h2>
+<section id="simple-classes">
+<h3>Simple Classes<a class="headerlink" href="#simple-classes" title="Permalink to this headline"></a></h3>
+<section id="simplecrawler">
+<h4>SimpleCrawler<a class="headerlink" href="#simplecrawler" title="Permalink to this headline"></a></h4>
+<p>The “simple” crawler does only the most important steps of the crawling process. At each iteration, when called,
+it navigates to a state with a <strong>SimpleStateNavigator</strong> and afterwards it generates a request and executes it using
+a <strong>SimpleInteractionHandler</strong>.</p>
+<p>The diagram below shows the pipeline of the SimpleCrawler</p>
+<figure class="align-center" id="id1">
+<img alt="../_images/SimpleCrawler_pipeline.png" src="../_images/SimpleCrawler_pipeline.png" />
+<figcaption>
+<p><span class="caption-text"><em>SimpleCrawler Pipeline</em></span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<span class="target" id="module-scanner.Crawling.Simple.SimpleCrawler"></span><dl class="py class">
+<dt class="sig sig-object py" id="scanner.Crawling.Simple.SimpleCrawler.SimpleCrawler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Crawling.Simple.SimpleCrawler.</span></span><span class="sig-name descname"><span class="pre">SimpleCrawler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_batch</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Crawling.Simple.SimpleCrawler.SimpleCrawler" title="Permalink to this definition"></a></dt>
+<dd><p>This crawler has integrated  <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleStateNavigator</span></code> that selects the next suitable state for crawling and
+creates a list of interactions that put the web app in it, and a <code class="xref py py-class docutils literal notranslate"><span class="pre">SimpleInteractionHandler</span></code>
+that executes the list of interactions and generates a new interaction with the web app using
+an endpoint that was not previously visited.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>for_batch</strong> (<em>str</em>) – Name of the batch containing information about the current app scan in the DB</p></li>
+<li><p><strong>config</strong> (<em>dict</em>) – Custom configuration settings</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Crawling.Simple.SimpleCrawler.SimpleCrawler.crawl">
+<span class="sig-name descname"><span class="pre">crawl</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Crawling.Simple.SimpleCrawler.SimpleCrawler.crawl" title="Permalink to this definition"></a></dt>
+<dd><p>Find a non explored state and visit a new endpoint.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="simplestatenavigator">
+<h4>SimpleStateNavigator<a class="headerlink" href="#simplestatenavigator" title="Permalink to this headline"></a></h4>
+<p>Generates a navigation queue to the next state. The next state is always the earliest state that is either not fully explored
+or not fully fuzzed.</p>
+<figure class="align-center" id="id2">
+<img alt="../_images/SimpleStateNavigatior_pipeline.png" src="../_images/SimpleStateNavigatior_pipeline.png" />
+<figcaption>
+<p><span class="caption-text"><em>SimpleStateNavigatior Pipeline</em></span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <strong>SimpleStateNavigator</strong> is not optimal in the sense that it doesn’t keep track of the current state. Instead, it always
+resets the web app and generates a new navigation queue to the selected state even when the state hasn’t actually changed.
+This way it always stays on the safe side and ensures that the propper state is reached in a simple matter, with the cost of
+some additional execution steps.</p>
+</div>
+</section>
+<section id="simpleinteractionhandler">
+<h4>SimpleInteractionHandler<a class="headerlink" href="#simpleinteractionhandler" title="Permalink to this headline"></a></h4>
+<p>Generates and executes requests. Additionally it is used to execute the navigational queue generated by the <strong>StateNavigator</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">generate()</span></code> method interanally finds a suitable Endpoint in the current state for the next request.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="detectors">
+<h2>Detectors<a class="headerlink" href="#detectors" title="Permalink to this headline"></a></h2>
+<p>This section explains the functionality of each detector type.</p>
+<section id="endpoint-extractor">
+<h3>Endpoint Extractor<a class="headerlink" href="#endpoint-extractor" title="Permalink to this headline"></a></h3>
+<p>Finds endpoints in the Response of an Interaction and extracts them.</p>
+</section>
+<section id="endpoint-detector">
+<h3>Endpoint Detector<a class="headerlink" href="#endpoint-detector" title="Permalink to this headline"></a></h3>
+<p>Find duplicate endpoints and removes of flags them as invalid for the next modules part of the scanner’s pipeline.</p>
+</section>
+<section id="state-change-detector">
+<h3>State Change Detector<a class="headerlink" href="#state-change-detector" title="Permalink to this headline"></a></h3>
+<p>Detects state change in the web app caused by crawling or fuzzing.</p>
+</section>
+<section id="state-detector">
+<h3>State Detector<a class="headerlink" href="#state-detector" title="Permalink to this headline"></a></h3>
+<p>Detects duplicate states and collapses them into one.</p>
+</section>
+</section>
+<section id="dection-methods">
+<h2>Dection methods<a class="headerlink" href="#dection-methods" title="Permalink to this headline"></a></h2>
+<p>This section contains all of the detection methods and their functionality.</p>
+<section id="module-scanner.Detection.Basic.EndpointExtractor">
+<span id="basic"></span><h3>Basic<a class="headerlink" href="#module-scanner.Detection.Basic.EndpointExtractor" title="Permalink to this headline"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Detection.Basic.EndpointExtractor.</span></span><span class="sig-name descname"><span class="pre">EndpointExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_batch</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_endpoints</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor" title="Permalink to this definition"></a></dt>
+<dd><p>The most basic version of an <code class="xref py py-class docutils literal notranslate"><span class="pre">Endpoint</span></code> detector. Gets the job done withouth any complex operation, but
+simply by parsing the body of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code> in an <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code> and looking for links, forms and redirects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>for_batch</strong> (<em>str</em>) – Name of the batch in the DB where endpoints are going to be searched in</p></li>
+<li><p><strong>ignore_endpoints</strong> (<em>List</em><em>[</em><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><em>Endpoint</em></a><em>]</em>) – List of endpoints to skip adding when found</p></li>
+<li><p><strong>config</strong> (<em>Dict</em>) – Pass a parsed <cite>config.yaml</cite></p></li>
+<li><p><strong>restrict_host</strong> (<em>bool</em>) – Add only endpoints from the current host address or also endpoints outside the current address scope</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.detect">
+<span class="sig-name descname"><span class="pre">detect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.detect" title="Permalink to this definition"></a></dt>
+<dd><p>Searches for endpoints in all new unprocessed interactions by checking the request body and looking for links,
+forms and redirects</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_endpoints">
+<span class="sig-name descname"><span class="pre">find_endpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interaction_query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_endpoints" title="Permalink to this definition"></a></dt>
+<dd><p>Find new endpoints in the response of an interaction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>interaction_query</strong> (dict (non casted <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code>)) – The interaction where the response is stored</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of new endpoints</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[dict] (dict is a non cast <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_forms">
+<span class="sig-name descname"><span class="pre">find_forms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bs4.BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_forms" title="Permalink to this definition"></a></dt>
+<dd><p>Find forms stored in html body data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – BS parsed html body</p></li>
+<li><p><strong>relative_to</strong> (<a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><em>Endpoint</em></a>) – Host to which the searched links are going to be restricted</p></li>
+<li><p><strong>in_state_id</strong> (<em>str</em>) – State id in which the links are currently being searched</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of new endpoints</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[dict] (dict is a non cast <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_links">
+<span class="sig-name descname"><span class="pre">find_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">soup</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bs4.BeautifulSoup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_links" title="Permalink to this definition"></a></dt>
+<dd><p>Find links stored in html body data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>soup</strong> (<em>BeautifulSoup</em>) – BS parsed html body</p></li>
+<li><p><strong>relative_to</strong> (<a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><em>Endpoint</em></a>) – Host to which the searched links are going to be restricted</p></li>
+<li><p><strong>in_state_id</strong> (<em>str</em>) – State id in which the links are currently being searched</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of new endpoints</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[dict] (dict is a non cast <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_redirects">
+<span class="sig-name descname"><span class="pre">find_redirects</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.find_redirects" title="Permalink to this definition"></a></dt>
+<dd><p>Find redirects stored in the body data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> (<em>int</em>) – Response code</p></li>
+<li><p><strong>relative_to</strong> (<a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><em>Endpoint</em></a>) – Host to which the searched links are going to be restricted</p></li>
+<li><p><strong>in_state_id</strong> (<em>str</em>) – State id in which the links are currently being searched</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of new endpoints</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[dict] (dict is a non cast <code class="xref py py-class docutils literal notranslate"><span class="pre">Interaction</span></code>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.resolve">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">relative_to</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">restrict_host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#scanner.Detection.Basic.EndpointExtractor.EndpointExtractor.resolve" title="Permalink to this definition"></a></dt>
+<dd><p>Decide if an url should be skipped or added based</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – Url that will be checked</p></li>
+<li><p><strong>relative_to</strong> (<a class="reference internal" href="dataclasses.html#scanner.Dataclasses.Endpoint.Endpoint" title="scanner.Dataclasses.Endpoint.Endpoint"><em>Endpoint</em></a>) – Host to which the searched links are going to be restricted</p></li>
+<li><p><strong>restrict_host</strong> – Decides if the host should be checked or directly added</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>When propperly resolved a 6-tuple: (scheme, netloc, path, params, query, fragment) or None</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="clustering-based">
+<h3>Clustering Based<a class="headerlink" href="#clustering-based" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The main idea is to use preimplented clustering algorithms from <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html">Scikit-learn</a>
+and <a class="reference external" href="https://scikit-learn-extra.readthedocs.io/en/stable/">Scikit-learn-extra</a> and implement detection logic around them.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Currently the only clustering algorithm available is <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html">DBSCAN</a>.
+After short evaluation peroid it appered to be best suiting and a decision was made to make it hard coded in the detectors. There is a possibility
+that <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html">the other clustering algorithms</a> could be optimal for specific cases.</p>
+<p>Consider the option of implementing wrappers for the other algorithms and extending the Detectors with the option for algorithm selection.</p>
+</div>
+<p>To cluster data we need a set of features for a datapoint, which combined together form a cluster. To do this with html data
+we have to convert it to a more suitable representation for clustering. Our feature engineerin consist of one simple step. We
+hash the html data using a locality sensitive hashing algorithm, which allows us to use the new data as an input for the algorithms.</p>
+<p>The clustering based method internally can be devided into two categories:</p>
+<section id="distance-matrix-based">
+<h4>Distance Matrix Based<a class="headerlink" href="#distance-matrix-based" title="Permalink to this headline"></a></h4>
+<p>For which a distance measure d<sub>mn</sub> between all possible hash pairs <em>(m,n)</em> is calculated and is presented as a square matrix A.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+        0      &amp; d_{12} &amp; d_{13} &amp; ... &amp; d_{1n} \\
+        d_{21} &amp; 0      &amp; d_{23} &amp; ... &amp; d_{2n} \\
+        d_{31} &amp; d_{32} &amp; 0      &amp; ... &amp; d_{3n} \\
+        .      &amp; .      &amp; .      &amp; .   &amp; .      \\
+        .      &amp; .      &amp; .      &amp; .   &amp; .      \\
+        .      &amp; .      &amp; .      &amp; .   &amp; .      \\
+        d_{m1} &amp; d_{m2} &amp; d_{m3} &amp; ... &amp; 0
+    \end{bmatrix}\end{split}\]</div>
+<p>The distance matrix is then used as an input for the clustering algorithms that can be initialized with a <code class="docutils literal notranslate"><span class="pre">metric='precomputed'</span></code> parameter.</p>
+</section>
+<section id="hash-as-int-vector-hash2vec">
+<h4>Hash as int vector (Hash2Vec)<a class="headerlink" href="#hash-as-int-vector-hash2vec" title="Permalink to this headline"></a></h4>
+<p>Where each hash is represented as a character vector, which subsequently gets transformed into integer vector. This way we can use each character
+as a numerical feature, and apply the clustering methods directly on the hash set.</p>
+<figure class="align-center" id="id3">
+<img alt="../_images/hash2vec_visualization.png" src="../_images/hash2vec_visualization.png" />
+<figcaption>
+<p><span class="caption-text"><em>Hash2Vec Visualization</em></span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+<p>Both categories are implemnted in the same classes and are selectable with the <code class="docutils literal notranslate"><span class="pre">distance_type</span></code> parameter. If given <code class="docutils literal notranslate"><span class="pre">distance_type=None</span></code> as input
+the detectors will use the Hash2Vec method else the distance matrix method is evoked and the give distance type is used for the matrix generation.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dataclasses.html" class="btn btn-neutral float-right" title="Data Classes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, SWaTEval.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
