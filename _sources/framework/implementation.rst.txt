@@ -147,9 +147,12 @@ as a numerical feature, and apply the clustering methods directly on the hash se
     
     *Hash2Vec Visualization*
 
+.. note::
+
+    Additionally, in the conversion step the features are normalized to values between 0 and 1.
+
 Both categories are implemnted in the same classes and are selectable with the ``distance_type`` parameter. If given ``distance_type=None`` as input 
 the detectors will use the Hash2Vec method else the distance matrix method is evoked and the give distance type is used for the matrix generation.
-
 
 .. automodule:: scanner.Detection.ClusteringBased.StateChangeDetector
     :members:

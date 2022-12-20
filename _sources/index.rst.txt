@@ -10,6 +10,7 @@ This is the documentation page of the SWatEval framework.
 
    general/index
    framework/index
+   general/notebooks
 
 .. toctree::
    :hidden:
