@@ -1,8 +1,8 @@
 ******************
-SWATEval Framework
+SWaTEval Framework
 ******************
 
-Setting up the environment 
+Setting up the environment
 ==============================
 
 The following steps describe how to set up and run the project in a dev environment.
@@ -31,7 +31,7 @@ Create and activate a virtual environment for Python 3.8
 .. code-block::
 
    conda create -n "scanner" python=3.8
-   conda actiavte scanner
+   conda activate scanner
 
 Navigate to the project directory and install the project requirements
 
@@ -52,7 +52,7 @@ Navigate to the project directory and install the project requirements
 **Step 3.** (Optional) Install Docker-DNS gen
 
 .. warning::
-    Make sure to propperly configure the addresses of your services in the ``config.yaml`` file if you decide to skip
+    Make sure to properly configure the addresses of your services in the ``config.yaml`` file if you decide to skip
     this step.
 
 To install the Docker DNS server, use the automation script provided in:
@@ -62,15 +62,15 @@ To install the Docker DNS server, use the automation script provided in:
   sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/jderusse/docker-dns-gen/master/bin/install)"
 
 .. note::
-    The DNS gen script creates a DNS server in Docker that exposes the services locally using their interanal port
-    number and container name name.
+    The DNS gen script creates a DNS server in Docker that exposes the services locally using their internal port
+    number and container name.
 
-    Example: You are running a container with name my-demo-webapp which has an http nginx server on port 80 and is exposed 
-    on 8080. Normally you will access the service using http://localhost:8080, but with Docker-DNS gen you will be able to 
+    Example: You are running a container with name my-demo-webapp which has an http nginx server on port 80 and is exposed
+    on 8080. Normally you will access the service using http://localhost:8080, but with Docker-DNS gen you will be able to
     access it also over http://my-demo-webapp.docker:80.
 
     The default project configuration uses this convention for accessing all of the services running as containers.
-    
+
     For more info check `this github repositiory <https://github.com/jderusse/docker-dns-gen>`_
 
 
@@ -81,7 +81,7 @@ To install the Docker DNS server, use the automation script provided in:
   docker-compose up
 
 .. note::
-    Use the --build tag to rebuild the containers if you're updating your project branch or version.
+    Use the :code:`--build` tag to rebuild the containers if you're updating your project branch or version.
 
 Once the images are downloaded and containers are up and running you should have:
 
@@ -113,32 +113,32 @@ Once the images are downloaded and containers are up and running you should have
      - http://mongo-express.docker:8081
      - 8081
      - 8081
-     
+
    * - Rebrow
      - http://rebrow.docker:5001
      - 5001
      - 8083
-     
+
    * - RQ-Dashboard
      - http://rq-dashboard.docker:9181
      - 5001
      - 8082
 
 .. note::
-    You could skip the following steps and just open the Project in `PyCharm <https://www.jetbrains.com/pycharm/>`_ 
+    You can skip the following steps and just open the Project in `PyCharm <https://www.jetbrains.com/pycharm/>`_
     and follow the IDE's guide for configuring virtual environment and installing project dependencies.
 
-**Step 5.** (Optional) Intall the project dependencies
+**Step 5.** (Optional) Install the project dependencies
 
 .. code-block::
-  
+
   pip install -r requirements.txt
 
 
-**Step 6.** (Optional) Test if the set up worked
+**Step 6.** (Optional) Test if the setup works
 
-First you need to have a Docker image of the Evaluation Framework in your local Docker image repositiory.
-To do this, pull the `Evaluation Framework repositiory <https://www.jetbrains.com/pycharm/>`_ which contains a script that automates the process.
+First you need to have a Docker image of the Evaluation Framework in your local Docker image repository.
+To do this, pull the `Evaluation Framework repositiry <https://www.jetbrains.com/pycharm/>`_ which contains a script that automates the process.
 Navigate to the location of the Evaluation Framework and run:
 
 .. code-block::

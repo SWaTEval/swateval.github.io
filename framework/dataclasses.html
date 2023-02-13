@@ -30,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> SWaTEval
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SWaTEval
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General information</a></li>
-<li class="toctree-l1"><a class="reference internal" href="index.html">SWATEval Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">SWaTEval Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../general/notebooks.html">Evaluation Notebooks</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Scanner's Description</span></p>
@@ -51,12 +55,12 @@
 <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementation.html">Implementation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Data Classes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#endpoint">Endpoint</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interaction">Interaction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#request">Request</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#response">Response</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#state">State</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.Endpoint">Endpoint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.Interaction">Interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.Parameter">Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.Request">Request</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.Response">Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-scanner.Dataclasses.State">State</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -76,8 +80,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Data Classes</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Data Classes</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/framework/dataclasses.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -90,23 +94,169 @@
   <section id="data-classes">
 <h1>Data Classes<a class="headerlink" href="#data-classes" title="Permalink to this headline"></a></h1>
 <p>This section describes the data classes used for data aggregation and presentation.</p>
-<section id="endpoint">
-<h2>Endpoint<a class="headerlink" href="#endpoint" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.Endpoint">
+<span id="endpoint"></span><h2>Endpoint<a class="headerlink" href="#module-scanner.Dataclasses.Endpoint" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Endpoint.Endpoint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Endpoint.</span></span><span class="sig-name descname"><span class="pre">Endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_interaction_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">found_at</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scanner.Dataclasses.Parameter.Parameter" title="scanner.Dataclasses.Parameter.Parameter"><span class="pre">scanner.Dataclasses.Parameter.Parameter</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#scanner.Dataclasses.Parameter.Parameter" title="scanner.Dataclasses.Parameter.Parameter"><span class="pre">scanner.Dataclasses.Parameter.Parameter</span></a><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'http'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'GET'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering_processed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visited</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scanned</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_reset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Endpoint.Endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>An Endpoint stores all the required information to construct a Request.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Endpoint.Endpoint.parameters_as_string">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">parameters_as_string</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#scanner.Dataclasses.Endpoint.Endpoint.parameters_as_string" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The parameters of the endpoint as an url query string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Endpoint.Endpoint.url">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#scanner.Dataclasses.Endpoint.Endpoint.url" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The endpoint as an url without parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Endpoint.Endpoint.url_with_params">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">url_with_params</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#scanner.Dataclasses.Endpoint.Endpoint.url_with_params" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The endpoint as an url with parameters</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Endpoint.EndpointClusteringInfo">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Endpoint.</span></span><span class="sig-name descname"><span class="pre">EndpointClusteringInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheme</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Endpoint.EndpointClusteringInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Contains clustering information for a specific endpoint.</p>
+</dd></dl>
+
 </section>
-<section id="interaction">
-<h2>Interaction<a class="headerlink" href="#interaction" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.Interaction">
+<span id="interaction"></span><h2>Interaction<a class="headerlink" href="#module-scanner.Dataclasses.Interaction" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Interaction.Interaction">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Interaction.</span></span><span class="sig-name descname"><span class="pre">Interaction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#scanner.Dataclasses.Request.Request" title="scanner.Dataclasses.Request.Request"><span class="pre">scanner.Dataclasses.Request.Request</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#scanner.Dataclasses.Response.Response" title="scanner.Dataclasses.Response.Response"><span class="pre">scanner.Dataclasses.Response.Response</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoints_processed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clustering_processed</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">made_by_fuzzer</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Interaction.Interaction" title="Permalink to this definition"></a></dt>
+<dd><p>Contains a pair of Request and Response. Additionally, has flags for the processing status in the pipeline.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Interaction.Interaction.generate_hash">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">generate_hash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#scanner.Dataclasses.Request.Request" title="scanner.Dataclasses.Request.Request"><span class="pre">scanner.Dataclasses.Request.Request</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#scanner.Dataclasses.Response.Response" title="scanner.Dataclasses.Response.Response"><span class="pre">scanner.Dataclasses.Response.Response</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'links-only'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scanner.Dataclasses.Interaction.Interaction.generate_hash" title="Permalink to this definition"></a></dt>
+<dd><p>Generates an interaction hash using the <code class="xref py py-class docutils literal notranslate"><span class="pre">Request</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code> data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – The request of the interaction</p></li>
+<li><p><strong>response</strong> – The response of the interaction</p></li>
+<li><p><strong>method</strong> – The method used to generate the hash (can be ‘links-only’, ‘links-with-params’ or ‘whole-response’)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#scanner.Dataclasses.Request.Request" title="scanner.Dataclasses.Request.Request">Request</a></p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#scanner.Dataclasses.Response.Response" title="scanner.Dataclasses.Response.Response">Response</a></p>
+</dd>
+<dt class="field-even">Type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The TLSH representation of the interaction</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Interaction.InteractionClusteringInfo">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Interaction.</span></span><span class="sig-name descname"><span class="pre">InteractionClusteringInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_endpoint_host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_endpoint_scheme</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_endpoint_path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_endpoint_method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster_count</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Interaction.InteractionClusteringInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Contains clustering information for a specific interaction.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Interaction.NonExistingHashDataMethod">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Interaction.</span></span><span class="sig-name descname"><span class="pre">NonExistingHashDataMethod</span></span><a class="headerlink" href="#scanner.Dataclasses.Interaction.NonExistingHashDataMethod" title="Permalink to this definition"></a></dt>
+<dd><p>Thrown when hash data method is not existing.</p>
+</dd></dl>
+
 </section>
-<section id="parameter">
-<h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.Parameter">
+<span id="parameter"></span><h2>Parameter<a class="headerlink" href="#module-scanner.Dataclasses.Parameter" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Parameter.Parameter">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Parameter.</span></span><span class="sig-name descname"><span class="pre">Parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Parameter.Parameter" title="Permalink to this definition"></a></dt>
+<dd><p>A Parameter is an extending part of an Endpoint, which will take any arbitrary value at the time of a request.
+For convenience each Parameter can store a default value that will not be used in comparisons.</p>
+</dd></dl>
+
 </section>
-<section id="request">
-<h2>Request<a class="headerlink" href="#request" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.Request">
+<span id="request"></span><h2>Request<a class="headerlink" href="#module-scanner.Dataclasses.Request" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Request.Request">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Request.</span></span><span class="sig-name descname"><span class="pre">Request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">endpoint:</span> <span class="pre">scanner.Dataclasses.Endpoint.Endpoint</span></em>, <em class="sig-param"><span class="pre">headers:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Request.Request" title="Permalink to this definition"></a></dt>
+<dd><p>A Request is the complete set of information (Endpoint, Parameter values) that can be sent to a web application.</p>
+</dd></dl>
+
 </section>
-<section id="response">
-<h2>Response<a class="headerlink" href="#response" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.Response">
+<span id="response"></span><h2>Response<a class="headerlink" href="#module-scanner.Dataclasses.Response" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.Response.Response">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.Response.</span></span><span class="sig-name descname"><span class="pre">Response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">code:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">data:</span> <span class="pre">Any</span></em>, <em class="sig-param"><span class="pre">headers:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.Response.Response" title="Permalink to this definition"></a></dt>
+<dd><p>A Response stores the raw data received upon a Request, along with the given response code.</p>
+</dd></dl>
+
 </section>
-<section id="state">
-<h2>State<a class="headerlink" href="#state" title="Permalink to this headline"></a></h2>
+<section id="module-scanner.Dataclasses.State">
+<span id="state"></span><h2>State<a class="headerlink" href="#module-scanner.Dataclasses.State" title="Permalink to this headline"></a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="scanner.Dataclasses.State.NoStateMarkedAsCurrent">
+<em class="property"><span class="pre">exception</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.State.</span></span><span class="sig-name descname"><span class="pre">NoStateMarkedAsCurrent</span></span><a class="headerlink" href="#scanner.Dataclasses.State.NoStateMarkedAsCurrent" title="Permalink to this definition"></a></dt>
+<dd><p>Thrown when there is no state in the DB marked as current.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.State.State">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">previous_state_id:</span> <span class="pre">str</span></em>, <em class="sig-param"><span class="pre">caused_by_interaction_id:</span> <span class="pre">str</span></em>, <em class="sig-param"><span class="pre">revisits:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></em>, <em class="sig-param"><span class="pre">reachable_from:</span> <span class="pre">List</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em>, <em class="sig-param"><span class="pre">current:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">explored:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">collapsed:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">fuzzed:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em>, <em class="sig-param"><span class="pre">initial:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.State.State" title="Permalink to this definition"></a></dt>
+<dd><p>Contains the data of a detected state</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="scanner.Dataclasses.State.State.generate_random_hash">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">generate_random_hash</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#scanner.Dataclasses.State.State.generate_random_hash" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a random hash for a <a class="reference internal" href="#scanner.Dataclasses.State.State" title="scanner.Dataclasses.State.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a> when there is not enough data for a real one.</p>
+<p>This may seem contra-intuitive, but works, because states are checked for similarity via the hash.
+We want to consider only states, that have enough exploration data when running the state collapsing pipeline
+and this method ensures that not properly explored states won’t be collapsed if they seem alike in the beginning.
+(i.e. this ensures lower false positive detections in the early exploration process.)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="scanner.Dataclasses.State.StateReachabilityInfo">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">scanner.Dataclasses.State.</span></span><span class="sig-name descname"><span class="pre">StateReachabilityInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">from_state_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caused_by_interaction_id</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#scanner.Dataclasses.State.StateReachabilityInfo" title="Permalink to this definition"></a></dt>
+<dd><p>Contains State reachability data.</p>
+</dd></dl>
+
 </section>
 </section>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SWATEval Framework &mdash; SWaTEval  documentation</title>
+  <title>SWaTEval Framework &mdash; SWaTEval  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -30,11 +30,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> SWaTEval
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            SWaTEval
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -43,7 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../general/index.html">General information</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">SWATEval Framework</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SWaTEval Framework</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setting-up-the-environment">Setting up the environment</a></li>
 </ul>
 </li>
@@ -71,8 +75,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>SWATEval Framework</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SWaTEval Framework</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/framework/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -83,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="swateval-framework">
-<h1>SWATEval Framework<a class="headerlink" href="#swateval-framework" title="Permalink to this headline"></a></h1>
+<h1>SWaTEval Framework<a class="headerlink" href="#swateval-framework" title="Permalink to this headline"></a></h1>
 <section id="setting-up-the-environment">
 <h2>Setting up the environment<a class="headerlink" href="#setting-up-the-environment" title="Permalink to this headline"></a></h2>
 <p>The following steps describe how to set up and run the project in a dev environment.</p>
@@ -105,7 +109,7 @@ However, you can use any other way to setup a Python 3.8 environment.</p>
 </div>
 <p>Create and activate a virtual environment for Python 3.8</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="s2">&quot;scanner&quot;</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span>
-<span class="n">conda</span> <span class="n">actiavte</span> <span class="n">scanner</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">scanner</span>
 </pre></div>
 </div>
 <p>Navigate to the project directory and install the project requirements</p>
@@ -124,7 +128,7 @@ However, you can use any other way to setup a Python 3.8 environment.</p>
 <p><strong>Step 3.</strong> (Optional) Install Docker-DNS gen</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Make sure to propperly configure the addresses of your services in the <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file if you decide to skip
+<p>Make sure to properly configure the addresses of your services in the <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code> file if you decide to skip
 this step.</p>
 </div>
 <p>To install the Docker DNS server, use the automation script provided in:</p>
@@ -133,8 +137,8 @@ this step.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The DNS gen script creates a DNS server in Docker that exposes the services locally using their interanal port
-number and container name name.</p>
+<p>The DNS gen script creates a DNS server in Docker that exposes the services locally using their internal port
+number and container name.</p>
 <p>Example: You are running a container with name my-demo-webapp which has an http nginx server on port 80 and is exposed
 on 8080. Normally you will access the service using <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>, but with Docker-DNS gen you will be able to
 access it also over <a class="reference external" href="http://my-demo-webapp.docker:80">http://my-demo-webapp.docker:80</a>.</p>
@@ -147,7 +151,7 @@ access it also over <a class="reference external" href="http://my-demo-webapp.do
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the –build tag to rebuild the containers if you’re updating your project branch or version.</p>
+<p>Use the <code class="code docutils literal notranslate"><span class="pre">--build</span></code> tag to rebuild the containers if you’re updating your project branch or version.</p>
 </div>
 <p>Once the images are downloaded and containers are up and running you should have:</p>
 <table class="colwidths-given docutils align-default">
@@ -199,16 +203,16 @@ access it also over <a class="reference external" href="http://my-demo-webapp.do
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You could skip the following steps and just open the Project in <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>
+<p>You can skip the following steps and just open the Project in <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a>
 and follow the IDE’s guide for configuring virtual environment and installing project dependencies.</p>
 </div>
-<p><strong>Step 5.</strong> (Optional) Intall the project dependencies</p>
+<p><strong>Step 5.</strong> (Optional) Install the project dependencies</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
 </pre></div>
 </div>
-<p><strong>Step 6.</strong> (Optional) Test if the set up worked</p>
-<p>First you need to have a Docker image of the Evaluation Framework in your local Docker image repositiory.
-To do this, pull the <a class="reference external" href="https://www.jetbrains.com/pycharm/">Evaluation Framework repositiory</a> which contains a script that automates the process.
+<p><strong>Step 6.</strong> (Optional) Test if the setup works</p>
+<p>First you need to have a Docker image of the Evaluation Framework in your local Docker image repository.
+To do this, pull the <a class="reference external" href="https://www.jetbrains.com/pycharm/">Evaluation Framework repositiry</a> which contains a script that automates the process.
 Navigate to the location of the Evaluation Framework and run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bash</span> <span class="o">./</span><span class="n">create_image</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>

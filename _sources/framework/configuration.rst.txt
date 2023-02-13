@@ -2,7 +2,7 @@
 Configuration
 *************
 
-This section will describe how to configure the scanner using the configuration file ``config.py`` in the root scanner directory.
+This section will describe how to configure the scanner using the configuration file ``config.py`` in the scanner's root directory.
 
 Sections
 ========
@@ -12,7 +12,7 @@ There are several sections that configure different services and scanner modules
 Redis
 -----
 
-Holds the address and the credentials needed to establis connection to Redis
+Holds the address and the credentials needed to establish a connection to Redis.
 
 .. code-block:: ini
 
@@ -24,7 +24,7 @@ Holds the address and the credentials needed to establis connection to Redis
 MITM Proxy
 ----------
 
-Holds the settings for the MITM proxy used by the exteranl scanners
+Holds the settings for the MITM proxy used by the external scanners.
 
 .. code-block:: ini
 
@@ -33,23 +33,22 @@ Holds the settings for the MITM proxy used by the exteranl scanners
     scheme = **your proxy scheme (http or https)**
     host = **your proxy host (localhost for local proxy)**
     port = **your proxy port**
-    
+
 .. note::
-    If the proxy is autostarted the given scheme host and port will be used for proxy setup. If auto start is
-    disabled, make sure the data scheme, host and port data match the one of the proxy you are using.
+    If the proxy is auto-started, the given scheme host and port will be used for proxy setup. If auto start is disabled, make sure the data scheme, host, and port data match the one of the proxy you are using.
 
 Mongo
 -----
 
-The database MongoDB has two sections in the configuration file:
+The database MongoDB has two sections in the configuration file.
 
-The first one contains the credentials for connection
+The first one contains the credentials for connection:
 
 .. code-block:: ini
 
     [mongo_db_credentials]
     mongo_host = **mongo host**
-    mongo_port = **mongo port (default usually is 27017)**
+    mongo_port = **mongo port (usually 27017)**
     username= **leave empty if no user is needed for authentication**
     password= **leave empty if no user is needed for authentication**
 
@@ -66,20 +65,16 @@ The second one contains the names for the databases where data should be read fr
     interaction_clustering = ** "interaction_clustering" or give a custom name**
 
 
-Vulnarable Web App
+Evaluation Target
 ------------------
 
-Contains the VWA data 
+Contains the configuration for the evaluation target.
 
 .. warning::
 
-    **Not fully implemented or properly used feature**. 
-    
-    Currently this section is used to extract the address of the target app, when the scanner is running 
-    in dev mode (i.e. in IDE and not in the backend server). The initial idea was to auto start the vulnarable 
-    web app as a docker contai
-    ner and redeploy it, when a reset is needed. This approach was replaced with a 
-    simpler one, but the idea remains possible for future implemntations. This is why this section is not yet removed.
+    **Not fully implemented or properly used feature**.
+
+    Currently, this section is used to extract the address of the target app when the scanner is running in dev mode (i.e. in IDE and not in the backend server). The initial idea was to auto start the evaluation target as a docker container and redeploy it when a reset is needed. This approach was replaced with a simpler one, but the idea remains possible for future implementations. This is why this section has not been removed.
 
 .. code-block:: ini
 
@@ -92,12 +87,12 @@ Contains the VWA data
 Workers
 -------
 
-Here the workers are selected
+Selects the workers to be run.
 
 .. code-block:: ini
 
     [workers]
-    execution_type = *sequential, parallel-rq or parallel-threaded*
+    execution_type = **sequential, parallel-rq or parallel-threaded**
     crawler_module = **the full python module path to the module's file**
     crawler_class = **the modules class name**
 
@@ -116,7 +111,7 @@ Here the workers are selected
 Worker Settings
 ---------------
 
-There are multiple sections that configure the different workers:
+There are multiple sections that configure the different workers.
 
 State Navigator
 ^^^^^^^^^^^^^^^
@@ -134,10 +129,10 @@ Endpoint Detector
 
     [endpoint_detector]
     restrict_host = ** "yes" or "no" - visit only endpoints on the current host**
-    allow_all_visit = **allow every endpoint found to be visited indepndet if it's duplicate**
+    allow_all_visit = **allow every endpoint found to be visited independently if it's duplicate**
     mark_always_clean = **mark every endpoint as clean (i.e. ignore clustering)**
 
-Endpoint Cleaner 
+Endpoint Cleaner
 ^^^^^^^^^^^^^^^^
 
 .. code-block:: ini
@@ -160,7 +155,7 @@ State Collapser
 ^^^^^^^^^^^^^^^
 
 .. code-block:: ini
-    
+
     [state_collapser]
     distance_type = **check the Distance class in the Utilities for all possible distance or leave empty to use the Hash2Vec method**
     delete_collapsed = ** "yes" if the duplicate states will be deleted and "no" if there should be only flagged as collapsed **
